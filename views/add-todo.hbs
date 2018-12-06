@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{{pageTitle}}</title>
+     <link type="text/css" rel="stylesheet" href="styles/test.css">
+    <script
+			  src="https://code.jquery.com/jquery-3.3.1.min.js"
+			  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+			  crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/gh/jquery-form/form@4.2.2/dist/jquery.form.min.js" integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    {{> header}}
+
+    <p>{{welcomeMessage}}</p>
+<form enctype='application/json'  id="form1">
+<input type="text" name="text" id="text">
+<button id="submit">Submit</button>
+</form>
+    {{> footer}}
+    <script type="text/javascript">
+    $('#form1').on('submit', function(e) {
+      event.preventDefault();
+      var todoText = {
+        'text': $('#text').val()
+      };
+
+    $.ajax({
+      type: "POST",
+      url: "/todos",
+      dataType : 'json',
+      dataType: "json",
+      contentType : "application/json",
+        data: JSON.stringify(todoText)//  data : $("#form1").serialize(),
+      }).done(function( data ) {
+          $('#form1')[0].reset();;
+  }).fail(function() {
+
+  });
+    });
+    </script>
+  </body>
+</html>
