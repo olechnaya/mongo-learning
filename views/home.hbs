@@ -6,9 +6,48 @@
   </head>
   <body>
     {{> header}}
-
+  {{> menu}}
     <p>{{welcomeMessage}}</p>
-
+    <!-- <form id        =  "uploadForm"
+         enctype   =  "multipart/form-data"
+         action    =  "photoUpload"
+         method    =  "post"
+    >
+    <input type="file" name="userPhoto" />
+    <input type="submit" value="Upload Image" name="submit">
+    </form> -->
+    <form id="uploadForm"
+            enctype="multipart/form-data"
+            action="photoUpload"
+            method="post">
+         <input type="file" name="userPhoto" />
+         <input type="submit" value="Upload Image" name="submit">
+         <span id = "status"></span>
+       </form>
     {{> footer}}
   </body>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+ <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+ <script>
+  $(document).ready(function() {
+
+     $('#uploadForm').submit(function() {
+        $("#status").empty().text("File is uploading...");
+        $(this).ajaxSubmit({
+
+            error: function(xhr) {
+        status('Error: ' + xhr.status);
+            },
+
+            success: function(response) {
+              $('#uploadForm')[0].reset()
+        $("#status").empty().text(response);
+                console.log(response);
+            }
+    });
+        //Very important line, it disable the page refresh.
+    return false;
+    });
+});
+</script>
 </html>

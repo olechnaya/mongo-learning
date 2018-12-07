@@ -12,7 +12,7 @@
   </head>
   <body>
     {{> header}}
-
+    {{> menu}}
     <p>{{welcomeMessage}}</p>
 <form enctype='application/json'  id="form1">
 <input type="text" name="text" id="text">
@@ -34,7 +34,7 @@
       contentType : "application/json",
         data: JSON.stringify(todoText)//  data : $("#form1").serialize(),
       }).done(function( data ) {
-          $('#form1')[0].reset();;
+          $('#form1')[0].reset();
   }).fail(function() {
 
   });
